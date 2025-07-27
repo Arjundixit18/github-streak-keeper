@@ -18,13 +18,15 @@ jobs:
           git config user.name "Arjun Dixit"
           git config user.email "dixitarjun249@gmail.com"
 
-      - name: Make empty commit
+      - name: Update last_commit.txt with today's date
         run: |
-          git commit --allow-empty -m "🕒 Daily GitHub streak keeper" || echo "No changes to commit"
+          echo "Last commit date: $(date)" > last_commit.txt
 
-      - name: Push commit with authentication
+      - name: Commit and push changes
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          git add last_commit.txt
+          git commit -m "📅 Update last_commit.txt - $(date +'%Y-%m-%d')" || echo "No changes to commit"
           git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}
           git push origin HEAD:main
