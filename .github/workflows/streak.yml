@@ -2,19 +2,29 @@ name: Daily GitHub Streak Commit
 
 on:
   schedule:
-    - cron: '0 5 * * *'  # Runs every day at 5:00 AM UTC (10:30 AM IST)
-  workflow_dispatch:     # Allows manual trigger
+    - cron: '0 5 * * *'  # Every day at 10:30 AM IST
+  workflow_dispatch:
 
 jobs:
   keep-streak-alive:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Configure Git
+        run: |
+          git config user.name "Arjun Dixit"
+          git config user.email "dixitarjun249@gmail.com"
+
       - name: Make empty commit
         run: |
-          git config user.name "Arjundixit18"
-          git config user.email "dixitarjun249@gmail.com"
-          git commit --allow-empty -m "🕒 Daily GitHub streak keeper"
-          git push
+          git commit --allow-empty -m "🕒 Daily GitHub streak keeper" || echo "No changes to commit"
+
+      - name: Push commit with authentication
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}
+          git push origin HEAD:main
