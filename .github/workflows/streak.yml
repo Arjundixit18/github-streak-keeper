@@ -1,5 +1,6 @@
 name: Daily GitHub Streak Commit
 
+
 on:
   schedule:
     - cron: '0 5 * * *'  # Every day at 10:30 AM IST
