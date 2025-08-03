@@ -34,4 +34,5 @@ jobs:
           git add last_commit.txt
           git commit -m "📅 Update last_commit.txt - $(date +'%Y-%m-%d')" || echo "No changes to commit"
           git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}
+          git pull origin main --rebase   # ✅ Fetch latest commits first
           git push origin HEAD:main
