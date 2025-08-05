@@ -32,7 +32,12 @@ jobs:
           TOKEN: ${{ secrets.PAT_STREAK_KEEPER }}
         run: |
           git add last_commit.txt
+          git add last_commit.txt
           git commit -m "📅 Update last_commit.txt - $(date +'%Y-%m-%d')" || echo "No changes to commit"
           git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}
-          git pull origin main --rebase
+          
+          
+          # Always pull but prefer local changes
+          git fetch origin main
+          git reset --soft origin/main
           git push origin HEAD:main
