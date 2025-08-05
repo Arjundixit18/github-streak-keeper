@@ -21,7 +21,7 @@ jobs:
       - name: Configure Git
         run: |
           git config user.name "Arjun Dixit"
-          git config user.email "dixitarjun249@gmail.com"
+          git config user.email "iarjundixit18@gmail.com"
 
       - name: Update last_commit.txt with today's date
         run: |
