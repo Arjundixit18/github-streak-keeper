@@ -29,7 +29,7 @@ jobs:
 
       - name: Commit and push changes
         env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.PAT_STREAK_KEEPER }}
         run: |
           git add last_commit.txt
           git commit -m "📅 Update last_commit.txt - $(date +'%Y-%m-%d')" || echo "No changes to commit"
